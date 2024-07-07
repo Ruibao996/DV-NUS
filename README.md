@@ -48,7 +48,7 @@ PROJECT_ROOT \
 |---main_train.py \
 |---main_predict.py \
 |---requirements.txt \
-|---visualization.ipynb \
+|---visualization.ipynb 
 
 
 ## Data

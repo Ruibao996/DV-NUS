@@ -16,38 +16,38 @@ This project involves data processing, clustering, and forecasting housing price
 
 ## Project Structure
 
-PROJECT_ROOT \
-|  \
-|---data \
-|    | \
-|    |---csv \
-|    |---process.py \
-|   \
-|---model \
-|    | \
-|    |---kmeans.py \
-|    |---linear_relationship.py \
-|    |---multi_lstm_train.py \
-|    |---multi_lstm_predict.py \
-|    |---model_visualization.py \
-|    \
-|---result \
-|    | \
-|    |---data \
-|    |---model \
-|    |---picture \
-| \
-|---tool \
-|    | \
-|    |---dimension_reduce.py \
-|    |---relation.py \
-| \
-|---README.md \
-|---README.pdf \
-|---cluster.py \
-|---main_train.py \
-|---main_predict.py \
-|---requirements.txt \
+PROJECT_ROOT <br>
+|  <br>
+|---data <br>
+| &emsp; | <br>
+|  &emsp;  |---csv <br>
+|  &emsp;  |---process.py <br>
+|   <br>
+|---model <br>
+|    &emsp; | <br>
+|    &emsp; |---kmeans.py <br>
+|    &emsp; |---linear_relationship.py <br>
+| &emsp;   |---multi_lstm_train.py <br>
+| &emsp;   |---multi_lstm_predict.py <br>
+| &emsp;   |---model_visualization.py <br>
+|    <br>
+|---result <br>
+| &emsp;   | <br>
+| &emsp;   |---data <br>
+| &emsp;   |---model <br>
+|  &emsp;  |---picture <br>
+| <br>
+|---tool <br>
+|  &emsp;  | <br>
+|  &emsp;  |---dimension_reduce.py <br>
+|  &emsp;  |---relation.py <br>
+| <br>
+|---README.md <br>
+|---README.pdf <br>
+|---cluster.py <br>
+|---main_train.py <br>
+|---main_predict.py <br>
+|---requirements.txt <br>
 |---visualization.ipynb 
 
 

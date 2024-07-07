@@ -16,39 +16,39 @@ This project involves data processing, clustering, and forecasting housing price
 
 ## Project Structure
 
-PROJECT_ROOT
-|
-|---data
-|    |
-|    |---csv
-|    |---process.py
-|   
-|---model
-|    |
-|    |---kmeans.py
-|    |---linear_relationship.py
-|    |---multi_lstm_train.py
-|    |---multi_lstm_predict.py
-|    |---model_visualization.py
-|    
-|---result
-|    |
-|    |---data
-|    |---model
-|    |---picture
-|
-|---tool
-|    |
-|    |---dimension_reduce.py
-|    |---relation.py
-|
-|---README.md
-|---README.pdf
-|---cluster.py
-|---main_train.py
-|---main_predict.py
-|---requirements.txt
-|---visualization.ipynb
+PROJECT_ROOT \
+|  \
+|---data \
+|    | \
+|    |---csv \
+|    |---process.py \
+|   \
+|---model \
+|    | \
+|    |---kmeans.py \
+|    |---linear_relationship.py \
+|    |---multi_lstm_train.py \
+|    |---multi_lstm_predict.py \
+|    |---model_visualization.py \
+|    \
+|---result \
+|    | \
+|    |---data \
+|    |---model \
+|    |---picture \
+| \
+|---tool \
+|    | \
+|    |---dimension_reduce.py \
+|    |---relation.py \
+| \
+|---README.md \
+|---README.pdf \
+|---cluster.py \
+|---main_train.py \
+|---main_predict.py \
+|---requirements.txt \
+|---visualization.ipynb \
 
 
 ## Data

@@ -70,8 +70,8 @@ After clustering, we analyze the number of houses and total earnings within each
 #### Model
 We use a multi_lstm model to forecast prices. The architecture of the model is as follows:
 
-![Multi LSTM Model Architecture](./result/picture/lstm_model_visualization.png "Multi LSTM Model Architecture")
-
+![Multi LSTM Model Architecture](./result/picture/Multi_LSTM.png "Multi LSTM Model Architecture")
+You can also view the [details](./result/picture/lstm_model_visualization.png) of the model.
 The model consists of two LSTMs, one for **followers** and one for **price**. The outputs of the two LSTMs are concatenated and fed into a dense layer to predict the price. The advantage of this model is its ability to incorporate followers' information, which is a critical factor in predicting prices. Followers represent the number of people interested in a property, which can significantly influence its price.
 
 ## Installation
@@ -108,7 +108,7 @@ The results of the clustering and forecasting are stored in the `result` directo
 ![Price Prediction](./result/picture/price_prediction_average.png)
 
 ## Visualization
-The `model` directory contains scripts for visualizing the data and model architecture. You can run the following script to visualize the model architecture:
+The `model` directory co![alt text](image.png)ntains scripts for visualizing the data and model architecture. You can run the following script to visualize the model architecture:
 
 ```bash
 run visualization.ipynb

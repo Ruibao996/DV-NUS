@@ -108,7 +108,7 @@ The results of the clustering and forecasting are stored in the `result` directo
 ![Price Prediction](./result/picture/price_prediction_average.png)
 
 ## Visualization
-The `model` directory co![alt text](image.png)ntains scripts for visualizing the data and model architecture. You can run the following script to visualize the model architecture:
+The `model` directory contains scripts for visualizing the data and model architecture. You can run the following script to visualize the model architecture:
 
 ```bash
 run visualization.ipynb

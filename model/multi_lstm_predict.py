@@ -11,7 +11,7 @@ def create_dataset(data, time_step=1):
         X.append(a)
     return np.array(X)
 
-def predict_main(predict_input_path, daily_price_save_path, price_predictions_save_path, prediction_followers_scaled_path, prediction_price_scaled_path, prediction_model_path, future_price_predictions_save_path, price_predictions_picture_save_path):
+def predict_main(predict_input_path, daily_price_save_path,daily_follower_save_path, price_predictions_save_path, prediction_followers_scaled_path, prediction_price_scaled_path, prediction_model_path, future_price_predictions_save_path, price_predictions_picture_save_path):
     # Load the data
     df = pd.read_csv(predict_input_path)
 
@@ -46,6 +46,11 @@ def predict_main(predict_input_path, daily_price_save_path, price_predictions_sa
     df_daily_prices = df_grouped[['tradeTime', 'price', 'price_rolling']].copy()
     df_daily_prices.set_index('tradeTime', inplace=True)
     df_daily_prices.to_csv(daily_price_save_path)
+
+    # Save the daily followers_mean and followers_rolling to CSV
+    df_daily_followers = df_grouped[['tradeTime', 'followers', 'followers_rolling']].copy()
+    df_daily_followers.set_index('tradeTime', inplace=True)
+    df_daily_followers.to_csv(daily_follower_save_path)
 
     # Load the scalers
     scaler_followers = np.load(prediction_followers_scaled_path, allow_pickle=True).item()

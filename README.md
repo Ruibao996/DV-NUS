@@ -52,15 +52,15 @@ PROJECT_ROOT <br>
 
 
 ## Data
-The data used is housing price data from Beijing, sourced from [Kaggle](https://www.kaggle.com/datasets/ruiqurm/lianjia). It includes information on price, area, location, layout, and more. The data is provided in CSV format.
+The data used is housing price data from Beijing, sourced from [Kaggle](https://www.kaggle.com/datasets/ruiqurm/lianjia). It includes information on price, area, location, layout, and more. The data is provided in CSV format. We use [empirical rule](https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule) to remove outliers and ensure the data is clean and reliable.
 
 ## Methods
 ### Clustering
-We use **PCA** to reduce the dimensionality of the data, followed by **K-means** for clustering. The number of clusters is determined using the elbow method, which assesses the change in inertia to find the optimal number of clusters. 
+We use machine learning model [t-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding) to reduce the dimensionality of the data, followed by [K-means](https://en.wikipedia.org/wiki/K-means_clustering) for clustering,besides, we also use [Elbow Method](https://en.wikipedia.org/wiki/Elbow_method_(clustering)) and [Silhouette Method](https://en.wikipedia.org/wiki/Silhouette_(clustering)) to help us optimize the cluster_num. The number of clusters is determined using the elbow method, which assesses the change in inertia to find the optimal number of clusters. 
 
 After clustering, we analyze the number of houses and total earnings within each cluster to identify the most profitable clusters.
 
-![Clustering Results](./result/picture/pca_cluster_visualization_4.png "Clustering Results")
+![Clustering Results](./result/picture/tsne_cluster_visualization_4.png "Clustering Results")
 ### Forecasting
 #### Data Preprocessing
 1. Fill missing values with the mean.

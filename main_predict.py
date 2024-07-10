@@ -10,5 +10,6 @@ predict_follower_save_path = './result/data/daily_followers.csv'
 price_predictions_save_path = './result/data/price_predictions_average.csv'
 future_price_predictions_save_path = './result/data/future_price_predictions.csv'
 price_predictions_picture_save_path = './result/picture/price_prediction_average.png'
+price_predictions_picture_2017_2019_save_path = './result/picture/price_prediction_average_2017_2019.png'
 
-predict_main(predict_input_path, predict_daily_prices_save_path, predict_follower_save_path, price_predictions_save_path, prediction_followers_scaled_path, prediction_price_scaled_path, prediction_model_path, future_price_predictions_save_path, price_predictions_picture_save_path)
+predict_main(predict_input_path, predict_daily_prices_save_path, predict_follower_save_path, price_predictions_save_path, prediction_followers_scaled_path, prediction_price_scaled_path, prediction_model_path, future_price_predictions_save_path, price_predictions_picture_save_path, price_predictions_picture_2017_2019_save_path)

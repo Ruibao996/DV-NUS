@@ -75,14 +75,18 @@ def KM_main(KM_DR_input_path, KM_ori_input_path, KM_cluster_centroids_path, KM_p
     cluster_summary = merged_df.groupby('Cluster').agg(
         num=('Cluster', 'size'),
         Incoming=('totalPrice', 'sum'),
-        livingRoom=('livingRoom', 'mean'),
-        drawingRoom=('drawingRoom', 'mean'),
-        kitchen=('kitchen', 'mean'),
-        bathRoom=('bathRoom', 'mean'),
+        # livingRoom=('livingRoom', 'mean'),
+        # drawingRoom=('drawingRoom', 'mean'),
+        # kitchen=('kitchen', 'mean'),
+        # bathRoom=('bathRoom', 'mean'),
+        floor_type=('floor_type', 'mean'),
+        renovationCondition=('renovationCondition', 'mean'),
+        elevator = ('elevator', 'mean'),
+        subway = ('subway', 'mean'),
         floor_num=('floor_num', 'mean'),
         constructionTime=('constructionTime', 'mean'),
         ladderRatio=('ladderRatio', 'mean'),
-        district=('district', 'mean'),
+        # district=('district', 'mean'),
         communityAverage=('communityAverage', 'mean'),
     ).reset_index()
 
@@ -101,20 +105,27 @@ def KM_main(KM_DR_input_path, KM_ori_input_path, KM_cluster_centroids_path, KM_p
 
     merged_df.to_csv(KM_pca_clustered_result_path, index=False)
 
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(12, 10))
     if type == 'PCA':
-        sns.scatterplot(x='PCA1', y='PCA2', hue='Cluster', palette='viridis', data=merged_df, legend='full')
-        plt.title('PCA Cluster Visualization')
+        sns.scatterplot(x='PCA1', y='PCA2', hue='Cluster', palette='Spectral', data=merged_df, legend='full')
+        plt.title('PCA Cluster Visualization', fontsize=15)
+        plt.xlabel('PCA1', fontsize=12)
+        plt.ylabel('PCA2', fontsize=12)
     elif type == 'MSE':
-        sns.scatterplot(x='MSE1', y='MSE2', hue='Cluster', palette='viridis', data=merged_df, legend='full')
-        plt.title('MSE Cluster Visualization')
+        sns.scatterplot(x='MSE1', y='MSE2', hue='Cluster', palette='Spectral', data=merged_df, legend='full')
+        plt.title('MSE Cluster Visualization', fontsize=15)
+        plt.xlabel('MSE1', fontsize=12)
+        plt.ylabel('MSE2', fontsize=12)
     else:
-        fig = plt.figure(figsize=(10, 8))
+        fig = plt.figure(figsize=(12, 10))
         ax = fig.add_subplot(111, projection='3d')
-        scatter = ax.scatter(merged_df['tSNE1'], merged_df['tSNE2'], merged_df['tSNE3'], c=merged_df['Cluster'], cmap='viridis')
+        scatter = ax.scatter(merged_df['tSNE1'], merged_df['tSNE2'], merged_df['tSNE3'], c=merged_df['Cluster'], cmap='viridis', s=60, alpha=0.8)
         legend1 = ax.legend(*scatter.legend_elements(), title="Clusters")
         ax.add_artist(legend1)
-        plt.title('tSNE Cluster Visualization')
+        ax.set_xlabel('tSNE1', fontsize=12)
+        ax.set_ylabel('tSNE2', fontsize=12)
+        ax.set_zlabel('tSNE3', fontsize=12)
+        ax.set_title('tSNE Cluster Visualization', fontsize=15)
     
     plt.savefig(KM_pca_cluster_visualization_path)
     plt.show()

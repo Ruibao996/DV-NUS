@@ -11,7 +11,7 @@ def create_dataset(data, time_step=1):
         X.append(a)
     return np.array(X)
 
-def predict_main(predict_input_path, daily_price_save_path,daily_follower_save_path, price_predictions_save_path, prediction_followers_scaled_path, prediction_price_scaled_path, prediction_model_path, future_price_predictions_save_path, price_predictions_picture_save_path):
+def predict_main(predict_input_path, daily_price_save_path, daily_follower_save_path, price_predictions_save_path, prediction_followers_scaled_path, prediction_price_scaled_path, prediction_model_path, future_price_predictions_save_path, price_predictions_picture_save_path, price_predictions_picture_2017_2019_save_path):
     # Load the data
     df = pd.read_csv(predict_input_path)
 
@@ -109,16 +109,41 @@ def predict_main(predict_input_path, daily_price_save_path,daily_follower_save_p
     future_predictions_df.to_csv(future_price_predictions_save_path, index=False)
 
     # Visualize the price prediction
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(16, 8))
+    plt.title("Price Prediction")
+    plt.xlabel("Time")
+    plt.ylabel("Price")
+    plt.grid(True)  # Add grid
     plt.plot(df_grouped['tradeTime'], df_grouped['price_rolling'], label='Original Price (Rolling)')
-    plt.plot(predictions_df['tradeTime'], predictions_df['Predicted_Price'], label='Predicted Price', linestyle='--')
-    plt.plot(future_predictions_df['tradeTime'], future_predictions_df['Predicted_Price'], label='Future Predicted Price', linestyle='--')
-    plt.title('Price Prediction')
-    plt.xlabel('Time')
-    plt.ylabel('Price')
-    plt.legend()
+    plt.plot(predictions_df['tradeTime'], predictions_df['Predicted_Price'], label='Predicted Price', alpha=0.7)
+    plt.plot(future_predictions_df['tradeTime'], future_predictions_df['Predicted_Price'], label='Future Predicted Price', alpha=0.7)
+    plt.legend(loc="lower right")
     plt.savefig(price_predictions_picture_save_path)
     plt.show()
 
+    # Visualize the price prediction for 2017-2019
+    plt.figure(figsize=(16, 8))
+    plt.title("Price Prediction (2017-2019)")
+    plt.xlabel("Time")
+    plt.ylabel("Price")
+    plt.grid(True)  # Add grid
+    plt.plot(df_grouped['tradeTime'], df_grouped['price_rolling'], label='Original Price (Rolling)')
+    plt.plot(predictions_df['tradeTime'], predictions_df['Predicted_Price'], label='Predicted Price', alpha=0.7)
+    plt.plot(future_predictions_df['tradeTime'], future_predictions_df['Predicted_Price'], label='Future Predicted Price', alpha=0.7)
+    plt.xlim(pd.to_datetime("2017-01-01"), pd.to_datetime("2019-2-31"))
+    plt.ylim(50000, 80000)
+    plt.legend(loc="lower right")
+    plt.savefig(price_predictions_picture_2017_2019_save_path)
+    plt.show()
+
 if __name__ == "__main__":
-    predict_main()
+    predict_main(predict_input_path='predict_input.csv',
+                 daily_price_save_path='daily_price.csv',
+                 daily_follower_save_path='daily_follower.csv',
+                 price_predictions_save_path='price_predictions.csv',
+                 prediction_followers_scaled_path='followers_scaler.npy',
+                 prediction_price_scaled_path='price_scaler.npy',
+                 prediction_model_path='model.h5',
+                 future_price_predictions_save_path='future_price_predictions.csv',
+                 price_predictions_picture_save_path='price_predictions.png',
+                 price_predictions_picture_2017_2019_save_path='price_predictions_2017_2019.png')

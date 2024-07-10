@@ -22,7 +22,7 @@ def tsne_dimension_reduction(data, components=2):
     return reduced_data
 
 # Random sample of the data 1/1000
-def random_sample(data, sample_size=0.001):
+def random_sample(data, sample_size=0.005):
     # Calculate the number of samples to select
     num_samples = int(data.shape[0] * sample_size)
     
@@ -53,15 +53,22 @@ def DR_main(input_path, output_path, type='PCA'):
         print("Error converting 'constructionTime' to float. Check data for non-numeric values.")
         return
 
-    categorical_columns = ['floor_type', 'renovationCondition', 'buildingStructure', 'elevator', 'fiveYearsProperty', 'subway']
+    categorical_columns = ['buildingStructure', 'fiveYearsProperty', 'livingRoom', 'drawingRoom', 'kitchen', 'bathRoom', 'district']
     df = pd.get_dummies(df, columns=categorical_columns, drop_first=True)
 
     columns_of_interest = [
-        'id', 'livingRoom', 'drawingRoom', 'kitchen', 'bathRoom', 'floor_num', 
-        'constructionTime', 'ladderRatio', 'district', 'communityAverage', 'totalPrice'
+        'id', 'floor_num', 'elevator', 'subway', 'floor_type', 'renovationCondition',
+        'constructionTime', 'ladderRatio', 'communityAverage', 'totalPrice'
     ]
 
+    # Extend columns_of_interest with generated dummy variable columns
     columns_of_interest.extend([col for col in df.columns if any(prefix in col for prefix in categorical_columns)])
+
+    # Check which columns are missing
+    missing_columns = [col for col in columns_of_interest if col not in df.columns]
+    if missing_columns:
+        print(f"Warning: The following columns are missing from the DataFrame: {missing_columns}")
+        columns_of_interest = [col for col in columns_of_interest if col in df.columns]
 
     data = df[columns_of_interest]
 

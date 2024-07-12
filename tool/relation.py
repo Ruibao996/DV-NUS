@@ -2,36 +2,43 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 
+# Load the data
 df = pd.read_csv('./../data/BeijingHousingPrices_processed_modified.csv')
 
+# Replace 'Unknown' with NaN
 df.replace('Unknown', np.nan, inplace=True)
 
-# use the mode for categorical columns and the mean for numerical columns to fill missing values
+# Fill missing values
 for column in df.columns:
     if df[column].dtype == 'object':
         df[column].fillna(df[column].mode()[0], inplace=True)
     else:
         df[column].fillna(df[column].mean(), inplace=True)
 
-categorical_columns = ['floor_type', 'renovationCondition', 'buildingStructure', 'elevator', 'fiveYearsProperty', 'subway']
+# Define categorical columns
+categorical_columns = ['floor_num', 'renovationCondition', 'buildingStructure', 'fiveYearsProperty']
+
+# One-hot encode categorical columns
 df = pd.get_dummies(df, columns=categorical_columns, drop_first=True)
 
-columns_of_interest = [
-    'followers', 'livingRoom', 'drawingRoom', 'kitchen', 'bathRoom',
-    'floor_num', 'constructionTime', 'ladderRatio', 'district', 'communityAverage'
+# Columns of interest for the correlation matrix
+base_columns_of_interest = [
+    'followers', 'price', 'floor_type', 'constructionTime', 
+    'ladderRatio', 'district', 'communityAverage', 'elevator', 'subway'
 ]
 
-columns_of_interest.extend([col for col in df.columns if any(prefix in col for prefix in categorical_columns)])
+# Extend columns_of_interest with one-hot encoded columns
+one_hot_encoded_columns = [col for col in df.columns if any(prefix in col for prefix in categorical_columns)]
+columns_of_interest = base_columns_of_interest + one_hot_encoded_columns
 
+# Scale the data
 scaler = MinMaxScaler()
-df[columns_of_interest + ['price']] = scaler.fit_transform(df[columns_of_interest + ['price']])
+df[columns_of_interest] = scaler.fit_transform(df[columns_of_interest])
 
-correlation_dict = {}
-for column in columns_of_interest:
-    correlation_dict[column] = df['price'].corr(df[column])
+# Calculate the correlation matrix
+correlation_matrix = df[columns_of_interest].corr()
 
-correlation_df = pd.DataFrame(list(correlation_dict.items()), columns=['type', 'correlation'])
+# Save the correlation matrix to a CSV file
+correlation_matrix.to_csv('./../data/correlation_matrix.csv')
 
-correlation_df.to_csv('./../result/data/correlation_with_price.csv', index=False)
-
-print("Correlation calculation is done! Check the 'correlation_with_price.csv' file.")
+print("Correlation matrix calculation is done! Check the 'correlation_matrix.csv' file.")

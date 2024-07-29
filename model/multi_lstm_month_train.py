@@ -4,6 +4,7 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import LSTM, Dense, Input, Concatenate
 import tensorflow as tf
+import joblib
 
 def create_dataset(data, time_step=1):
     X, Y = [], []
@@ -101,21 +102,24 @@ def train_main_month(train_path, model_path, scaler_followers_path, scaler_price
     price_lstm = LSTM(50, return_sequences=True)(price_input)
     price_lstm = LSTM(50, return_sequences=False)(price_lstm)
     price_dense = Dense(25)(price_lstm)
-    
+    price_output = Dense(1)(price_dense)
+
     # Build the LSTM model for total price prediction
     total_price_input = Input(shape=(time_step, 1))
     total_price_lstm = LSTM(50, return_sequences=True)(total_price_input)
     total_price_lstm = LSTM(50, return_sequences=False)(total_price_lstm)
     total_price_dense = Dense(25)(total_price_lstm)
+    total_price_output = Dense(1)(total_price_dense)
 
     # Build the LSTM model for square prediction
     square_input = Input(shape=(time_step, 1))
     square_lstm = LSTM(50, return_sequences=True)(square_input)
     square_lstm = LSTM(50, return_sequences=False)(square_lstm)
     square_dense = Dense(25)(square_lstm)
+    square_output = Dense(1)(square_dense)
 
     # Concatenate the outputs of all LSTM models
-    concatenated = Concatenate()([followers_output, price_dense, total_price_dense, square_dense])
+    concatenated = Concatenate()([followers_output, price_output, total_price_output, square_output])
     concatenated_dense = Dense(25)(concatenated)
     final_output = Dense(1)(concatenated_dense)
 
@@ -124,16 +128,16 @@ def train_main_month(train_path, model_path, scaler_followers_path, scaler_price
     model.compile(optimizer='adam', loss='mean_squared_error')
 
     # Train the model
-    model.fit([X_train_followers, X_train_price, X_train_total_price, X_train_square], Y_train_price, batch_size=16, epochs=50, validation_split=0.2)
+    model.fit([X_train_followers, X_train_price, X_train_total_price, X_train_square], Y_train_price, batch_size=3, epochs=5, validation_split=0.2)
 
     # Save the model
     model.save(model_path)
 
     # Save the scalers
-    np.save(scaler_followers_path, scaler_followers)
-    np.save(scaler_price_path, scaler_price)
-    np.save(scaler_total_price_path, scaler_total_price)
-    np.save(scaler_square_path, scaler_square)
+    joblib.dump(scaler_followers, scaler_followers_path)
+    joblib.dump(scaler_price, scaler_price_path)
+    joblib.dump(scaler_total_price, scaler_total_price_path)
+    joblib.dump(scaler_square, scaler_square_path)
 
 if __name__ == "__main__":
-    train_main_month('path/to/your/data.csv', 'model_month.h5', 'scaler_followers_month.npy', 'scaler_price_month.npy', 'scaler_total_price_month.npy', 'scaler_square_month.npy')
+    train_main_month('path/to/your/data.csv', 'model_month.h5', 'scaler_followers_month.pkl', 'scaler_price_month.pkl', 'scaler_total_price_month.pkl', 'scaler_square_month.pkl')

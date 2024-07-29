@@ -107,6 +107,10 @@ The results of the clustering and forecasting are stored in the `result` directo
 
 ![Price Prediction](./result/picture/price_prediction_average.png)
 
+In the final presentation we mainly use the monthly data to predict the price, and the result is as follows:
+
+![Price Prediction](./result/picture/price_month.png)
+
 ## Visualization
 The `model` directory contains scripts for visualizing the data and model architecture. You can run the following script to visualize the model architecture:
 
@@ -119,6 +123,15 @@ This will generate a interact graph by [pygwalker](https://kanaries.net/pygwalke
 ![center_cluster](./result/picture/vis_center.png)
 
 ![pca_cluster](./result/picture/pca_cluster.png)
+
+## Final Visualization
+We mainly use the [tableau](https://www.tableau.com/) to visualize the data and find the relationship between the price and other features. The final visualization is as follows:
+
+![Distriction](./result/picture/ee.gif)
+
+![floor_num](./result/picture/floor_num.gif)
+
+![subway](./result/picture/subway.gif)
 
 ## Future Work
 Future improvements could include:

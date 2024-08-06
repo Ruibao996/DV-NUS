@@ -1,5 +1,9 @@
 # BeijingHousingPrice Project
 
+## Grades
+
+The final grades of our team is **A+** !
+
 ## Contributors
 
 | Contributor    | Area(s) of Work          | Description                                                                                                                                          |
